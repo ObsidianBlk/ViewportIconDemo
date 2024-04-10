@@ -1,0 +1,125 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7b8ay4appbv5"]
+
+[ext_resource type="MeshLibrary" uid="uid://ctqm47kbho601" path="res://assets/models.meshlib" id="1_igs58"]
+[ext_resource type="Script" path="res://world.gd" id="1_qk1sb"]
+[ext_resource type="PackedScene" uid="uid://f0yua3jtqc1g" path="res://objects/mesh_view_button/mesh_view_button.tscn" id="2_17a3p"]
+[ext_resource type="PackedScene" uid="uid://bkmbbnx03pe8x" path="res://objects/grid_view_button/grid_view_button.tscn" id="3_cxsb2"]
+
+[sub_resource type="Environment" id="Environment_i5kvs"]
+background_mode = 1
+background_color = Color(0.087646, 0.249202, 0.305885, 1)
+ambient_light_color = Color(0.356863, 0.356863, 0.356863, 1)
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_qk1sb")
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("1_igs58")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65535, 1, 655362, 2, 65534, 1441798, 65535, 65531, 655364, 2, 65531, 1048576, 65532, 65531, 655360, 65532, 65534, 1441798, 65532, 1, 1441792, 2, 1, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.689405, 0.362637, -0.627069, -1.37864e-08, 0.865667, 0.50062, 0.724376, -0.34513, 0.596795, -8.27752, 7.60017, 4.7284)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i5kvs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.956834, 0.220344, -0.189519, 0, 0.652085, 0.758146, 0.290635, -0.72542, 0.623937, 0, 9.0685, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MeshButtons" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -20.0
+offset_right = 40.0
+offset_bottom = 20.0
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MeshButtons"]
+layout_mode = 2
+
+[node name="MeshViewButton" parent="CanvasLayer/MeshButtons/VBoxContainer" instance=ExtResource("2_17a3p")]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+
+[node name="GridButtons" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_right = 32
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GridButtons"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/GridButtons/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="BTNGV_01" parent="CanvasLayer/GridButtons/VBoxContainer/GridContainer" instance=ExtResource("3_cxsb2")]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+mesh_library = ExtResource("1_igs58")
+
+[node name="BTNGV_02" parent="CanvasLayer/GridButtons/VBoxContainer/GridContainer" instance=ExtResource("3_cxsb2")]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+mesh_library = ExtResource("1_igs58")
+tile_id = 2
+
+[node name="BTNGV_03" parent="CanvasLayer/GridButtons/VBoxContainer/GridContainer" instance=ExtResource("3_cxsb2")]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+mesh_library = ExtResource("1_igs58")
+tile_id = 4
+snapshot = true
+
+[node name="BTNGV_04" parent="CanvasLayer/GridButtons/VBoxContainer/GridContainer" instance=ExtResource("3_cxsb2")]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+mesh_library = ExtResource("1_igs58")
+tile_id = 6
+snapshot = true
+
+[node name="BTNUpdateSnapshots" type="Button" parent="CanvasLayer/GridButtons/VBoxContainer"]
+layout_mode = 2
+text = "Update Snapshots"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 24
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="InfoLabel" type="Label" parent="CanvasLayer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Press a button!"
+
+[connection signal="pressed" from="CanvasLayer/MeshButtons/VBoxContainer/MeshViewButton" to="." method="_on_mesh_view_button_pressed"]
+[connection signal="tile_pressed" from="CanvasLayer/GridButtons/VBoxContainer/GridContainer/BTNGV_01" to="." method="_on_tile_button_pressed"]
+[connection signal="tile_pressed" from="CanvasLayer/GridButtons/VBoxContainer/GridContainer/BTNGV_02" to="." method="_on_tile_button_pressed"]
+[connection signal="tile_pressed" from="CanvasLayer/GridButtons/VBoxContainer/GridContainer/BTNGV_03" to="." method="_on_tile_button_pressed"]
+[connection signal="tile_pressed" from="CanvasLayer/GridButtons/VBoxContainer/GridContainer/BTNGV_04" to="." method="_on_tile_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GridButtons/VBoxContainer/BTNUpdateSnapshots" to="CanvasLayer/GridButtons/VBoxContainer/GridContainer/BTNGV_03" method="snap"]
+[connection signal="pressed" from="CanvasLayer/GridButtons/VBoxContainer/BTNUpdateSnapshots" to="CanvasLayer/GridButtons/VBoxContainer/GridContainer/BTNGV_04" method="snap"]

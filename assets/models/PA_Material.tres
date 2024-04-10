@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c1lhiqwrbrrrf"]
+
+[ext_resource type="Texture2D" uid="uid://ripan8uf2xhc" path="res://assets/models/texture_albedo.png" id="1_puxjl"]
+[ext_resource type="Texture2D" uid="uid://tqlslpftpeic" path="res://assets/models/texture_normals.png" id="2_i6eus"]
+
+[resource]
+resource_name = "PA_Material"
+cull_mode = 2
+albedo_texture = ExtResource("1_puxjl")
+roughness = 0.5
+normal_enabled = true
+normal_texture = ExtResource("2_i6eus")
+texture_filter = 2
